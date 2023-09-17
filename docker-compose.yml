@@ -1,9 +1,21 @@
 version: "3"
 services:
+
+  pgadmin:    
+    image: dpage/pgadmin4
+    ports:
+      - '5050:80'
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=jerilcj3@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=johnjose
+    depends_on:
+      - postgres    
+
   postgres:
     image: "postgres:15"
     environment:
       - POSTGRES_PASSWORD=johnjose
+
   nginx:
     depends_on:
       - api
@@ -13,8 +25,8 @@ services:
       dockerfile: Dockerfile.dev
       context: ./nginx
     ports:
-      - "80:80"
-      - "5000:5000"
+      - "3000:80"     # change this port when running in production 
+
   api:
     build:
       dockerfile: Dockerfile.dev
@@ -28,6 +40,7 @@ services:
       - PGDATABASE=tracker
       - PGPASSWORD=johnjose
       - PGPORT=5432
+      
   client:
     stdin_open: true
     environment:
