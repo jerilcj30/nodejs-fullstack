@@ -1,8 +1,11 @@
+const logger = require('../utils/logger');
+
 //@desc Get all Demos
 //@route GET /api/demo
 //@access public
 const getAllDemos = (req,res) => {
     res.status(200).json({message: 'Get all Demos jeril'})
+    logger.log('info', 'success')
 }
 
 //@desc Create a New Demo
