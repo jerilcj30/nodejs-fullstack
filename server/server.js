@@ -1,18 +1,37 @@
 // const dotenv = require('dotenv').config();
-const YAML = require('yamljs');
-const swaggerUI = require('swagger-ui-express');
+
 const express = require('express');
+const swaggerUI = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
 // const keys = require('./keys');
 
-const swaggerJSDocs = YAML.load('./api.yaml');
 const logger = require('./utils/logger');
 
 const app = express();
 const port = process.env.PORT || 5000;
 
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Tracker API',
+      version: '1.0.0',
+      description: 'Application API',
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000',
+      },
+    ],
+  },
+  apis: ['./routes/*.js'],
+};
+
+const specs = swaggerJsDoc(options);
+
 app.use(express.json());
 
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJSDocs));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 app.use('/demo', require('./routes/demoRoutes'));
 
