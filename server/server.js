@@ -1,5 +1,8 @@
 const keys = require("./keys");
 const express = require("express");
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs')
+const swaggerJSDocs = YAML.load("./api.yaml");
 const logger = require('./utils/logger');
 
 const dotenv = require("dotenv").config();
@@ -7,17 +10,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(express.json());
-app.use("/demo", require("./routes/demoRoutes"));
 
-// Capture 500 errors
-app.use((err, req, res, next) => {
-  res.status(500).send("Could not perform the calculation!");
-  logger.error(
-    `${err.status || 500} - ${res.statusMessage} - ${err.message} - ${
-      req.originalUrl
-    } - ${req.method} - ${req.ip}`
-  );
-});
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJSDocs))
+
+app.use("/demo", require("./routes/demoRoutes"));
 
 // Capture 404 erors
 app.use((req, res, next) => {

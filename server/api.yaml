@@ -1,0 +1,86 @@
+swagger: "2.0"
+info:
+  title: Application API
+  description: API description in Markdown.
+  version: 1.0.0
+  contact:
+    email: jerilcj3@gmail.com
+host: localhost:3000
+basePath: /api
+schemes: [http, https]  
+paths:
+
+  # Returns an array of objects 
+  /demo:
+    get:
+      summary: Returns an array of objects.
+      description: Optional extended description in Markdown.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                message: 
+                  type: string         
+        400:
+          description: User Error
+        500:
+          description: Internal Server Error
+
+  # Returns an object
+  /demo/{id}:
+    get:
+      summary: Returns an object.
+      description: Returns an object when id is passed.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer  
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              message: 
+                type: string
+  
+  # Create an object  
+  /demo/:
+    post:
+      summary: Create A Demo
+      description: Returns an object when id is passed.
+      produces: 
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+      - in: body
+        name: demo
+        schema:
+          type: object
+          properties:
+            id:
+              type: integer
+            name: 
+              type: string
+            age:
+              type: integer
+            sex:
+              type: string
+      responses:
+        200:
+          description: success
+
+
+
+
+      
+

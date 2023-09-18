@@ -1,7 +1,8 @@
 version: "3"
 services:
 
-  pgadmin:    
+  pgadmin:
+    container_name: pgadmin
     image: dpage/pgadmin4
     ports:
       - '5050:80'
@@ -12,11 +13,13 @@ services:
       - postgres    
 
   postgres:
+    container_name: postgres
     image: "postgres:15"
     environment:
       - POSTGRES_PASSWORD=johnjose
 
   nginx:
+    container_name: nginx
     depends_on:
       - api
       - client
@@ -28,6 +31,7 @@ services:
       - "3000:80"     # change this port when running in production 
 
   api:
+    container_name: api
     build:
       dockerfile: Dockerfile.dev
       context: "./server"
@@ -42,6 +46,7 @@ services:
       - PGPORT=5432
       
   client:
+    container_name: client
     stdin_open: true
     environment:
       - CHOKIDAR_USEPOLLING=true
