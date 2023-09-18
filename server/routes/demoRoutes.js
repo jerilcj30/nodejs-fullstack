@@ -1,6 +1,13 @@
-const express = require('express')
+const express = require('express');
+
 const router = express.Router();
-const { getAllDemos, createADemo, getADemo, updateADemo, deleteADemo } = require('../controllers/demoController')
+const {
+  getAllDemos,
+  createADemo,
+  getADemo,
+  updateADemo,
+  deleteADemo,
+} = require('../controllers/demoController');
 
 router.route('/').get(getAllDemos).post(createADemo);
 
