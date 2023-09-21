@@ -1,4 +1,5 @@
 const logger = require('../utils/logger');
+const knex = require('../db/db');
 
 // @desc Get all Demos
 // @route GET /api/demo
@@ -17,9 +18,21 @@ const getAllDemos = (req, res) => {
 // @route POST /api/demo
 // @access public
 const createADemo = (req, res) => {
-  let demo = [];
-  demo = [req.body, ...demo];
-  res.status(200).json(demo);
+  // let demo = [];
+  // demo = [req.body, ...demo];
+  knex('demos')
+    .insert({
+      first_name: 'jeril',
+      last_name: 'jose',
+    })
+    .then(() => {
+      knex
+        .select()
+        .from('demos')
+        .then((demos) => {
+          res.send(demos);
+        });
+    });
 };
 
 // @desc Get A Demo

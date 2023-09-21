@@ -1,5 +1,4 @@
-// const dotenv = require('dotenv').config();
-
+require('dotenv').config();
 const express = require('express');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
@@ -8,7 +7,7 @@ const swaggerJsDoc = require('swagger-jsdoc');
 const logger = require('./utils/logger');
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = 5000;
 
 const options = {
   definition: {
@@ -20,7 +19,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
+        url: process.env.BASE_URL,
       },
     ],
   },
