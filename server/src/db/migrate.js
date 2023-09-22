@@ -48,7 +48,7 @@ async function main() {
       database: databaseName,
     },
     migrations: {
-      directory: './db/migrations', // Specify the correct path to your migrations directory
+      directory: './src/db/migrations', // Specify the correct path to your migrations directory
     },
   });
 
