@@ -32,7 +32,7 @@ app.use(express.json());
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
-app.use('/demo', require('./routes/demoRoutes'));
+app.use('/demo', require('../src/routes/demoRoutes'));
 
 // Capture 404 erors
 app.use((req, res) => {

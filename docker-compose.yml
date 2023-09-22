@@ -4,6 +4,7 @@ services:
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
+    restart: always
     ports:
       - '5050:80'
     environment:
@@ -15,6 +16,7 @@ services:
   db:
     container_name: db
     image: 'postgres:15'
+    restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}      
@@ -41,7 +43,7 @@ services:
 
   api:
     container_name: api
-    restart: on-failure    
+    restart: always    
     build:
       dockerfile: Dockerfile.dev
       context: "./server"    
@@ -64,6 +66,7 @@ services:
       
   client:
     container_name: client
+    restart: always
     stdin_open: true
     environment:
       - CHOKIDAR_USEPOLLING=true
