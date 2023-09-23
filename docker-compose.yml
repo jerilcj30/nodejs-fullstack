@@ -1,6 +1,25 @@
 version: "3"
 services:
 
+  redis:
+    container_name: redis
+    image: redis:7.0.8-alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-data:/data
+  
+  redis-commander:
+    container_name: redis_commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    depends_on:
+      - redis    
+
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
@@ -109,3 +128,4 @@ services:
 
 volumes:
   pg_data: null
+  redis-data:

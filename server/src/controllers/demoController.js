@@ -1,17 +1,25 @@
 const logger = require('../utils/logger');
 const knex = require('../db/db');
+const { redis } = require('../utils/redis');
 
 // @desc Get all Demos
 // @route GET /api/demo
 // @access public
-const getAllDemos = (req, res) => {
-  res
-    .status(200)
-    .json([
-      { message1: 'Get all Demos1 jeril' },
-      { message2: 'Get all Demos2 jeril' },
-    ]);
-  logger.log('info', 'success');
+const getAllDemos = async (req, res) => {
+  try {
+    const redisData = await redis.get('latestdemos');
+    if (redisData) {
+      return res.json({ source: 'redis', data: JSON.parse(redisData) });
+    }
+    const pgData = await knex.select().from('demos');
+    // EX stands for time to live which is 10 seconds
+    await redis.set('latestdemos', JSON.stringify(pgData), 'EX', 10);
+    res.status(200).json({ source: 'postgres', message: pgData });
+    logger.log('info', 'success');
+  } catch (error) {
+    logger.log('error', error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 };
 
 // @desc Create a New Demo
