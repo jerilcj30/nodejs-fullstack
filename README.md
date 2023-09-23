@@ -14,6 +14,7 @@
 - setup helmet to secure your api routes -
 - eslint & prettier Airbnb style guide - https://www.youtube.com/watch?v=SydnKbGc7W8&t=949s
 - express-validator
+- Redis - Implemented redis caching
 
 # VS Code extensions installed
 
