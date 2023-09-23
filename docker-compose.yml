@@ -9,7 +9,7 @@ services:
       - '5050:80'
     environment:
       - PGADMIN_DEFAULT_EMAIL=jerilcj3@gmail.com
-      - PGADMIN_DEFAULT_PASSWORD=johnjose
+      - PGADMIN_DEFAULT_PASSWORD=johnjose    
     depends_on:
       - db    
 
@@ -19,7 +19,10 @@ services:
     restart: always
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}      
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    tty: true      
     ports:
       - '5432:5432'
     healthcheck:
@@ -62,6 +65,32 @@ services:
         condition: service_healthy
     healthcheck:
       disable: true
+  
+  migrations:
+    container_name: migrations
+    build:
+      dockerfile: Dockerfile.dev
+      context: "./server"
+    command: 
+      [
+        "./wait-for-it.sh",
+        "db:5432",
+        "--",
+        "npm",
+        "run",
+        "migrate:up"
+      ]
+    links:
+      - db
+    depends_on:
+      - db    
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      DATABASE_URL: ${DATABASE_URL}
       
       
   client:
@@ -76,3 +105,6 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
+
+volumes:
+  pg_data: null
