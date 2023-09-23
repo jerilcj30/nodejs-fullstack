@@ -18,6 +18,7 @@ const getAllDemos = (req, res) => {
 // @route POST /api/demo
 // @access public
 const createADemo = (req, res) => {
+  console.log(req.body);
   // let demo = [];
   // demo = [req.body, ...demo];
   knex('demos')

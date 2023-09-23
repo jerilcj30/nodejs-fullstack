@@ -1,13 +1,15 @@
 require('dotenv').config();
 const express = require('express');
+const helmet = require('helmet');
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
 // const keys = require('./keys');
 
 const logger = require('./utils/logger');
 
-const app = express();
 const port = 5000;
+const app = express();
+app.use(helmet());
 
 const options = {
   definition: {
@@ -19,16 +21,24 @@ const options = {
     },
     servers: [
       {
-        url: process.env.BASE_URL,
+        url: process.env.BASE_URL || 'http://localhost',
       },
     ],
   },
-  apis: ['./routes/*.js'],
+  apis: ['./routes/*.js'], // routes refer to the routes folder
 };
 
 const specs = swaggerJsDoc(options);
 
 app.use(express.json());
+
+/* middleware code */
+
+// app.use('/s', (req, res, next) => {
+//   console.log(req.body);
+//   console.log('in the middle');
+//   next();
+// });
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
