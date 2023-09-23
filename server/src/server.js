@@ -9,7 +9,6 @@ const logger = require('./utils/logger');
 
 const port = 5000;
 const app = express();
-app.use(helmet());
 
 const options = {
   definition: {
@@ -21,14 +20,16 @@ const options = {
     },
     servers: [
       {
-        url: process.env.BASE_URL || 'http://localhost',
+        url: process.env.BASE_URL,
       },
     ],
   },
-  apis: ['./routes/*.js'], // routes refer to the routes folder
+  apis: ['./src/routes/*.js'],
 };
 
 const specs = swaggerJsDoc(options);
+
+app.use(helmet());
 
 app.use(express.json());
 
