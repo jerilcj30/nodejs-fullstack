@@ -11,7 +11,7 @@ const {
 
 /**
  * @swagger
- * /demo:
+ * /api/demo:
  *   get:
  *     summary: Returns an array of objects.
  *     responses:
@@ -31,7 +31,7 @@ router.route('/').get(getAllDemos);
 
 /**
  * @swagger
- * /demo:
+ * /api/demo:
  *   post:
  *     summary: Create a demo
  *     parameters:
@@ -65,7 +65,7 @@ router.route('/').post(createADemo);
 
 /**
  * @swagger
- * /demo:
+ * /api/demo:
  *   get:
  *     summary: Get demo by ID
  *     parameters:
