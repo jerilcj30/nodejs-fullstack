@@ -1,10 +1,12 @@
-import { config } from 'dotenv';
+import dotenv from 'dotenv';
 import Knex from 'knex';
 import logger from '../utils/logger.js';
 
 // You can dynamically pass the database name
 // as a command-line argument, or obtain it from
 // a .env file
+dotenv.config();
+
 const databaseName = process.env.POSTGRES_DB || 'tracker2';
 
 const connection = {

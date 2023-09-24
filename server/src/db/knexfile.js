@@ -1,5 +1,6 @@
-import { config } from 'dotenv';
+import dotenv from 'dotenv';
 
+dotenv.config();
 // Update with your config settings.
 const knexFile = {
   development: {

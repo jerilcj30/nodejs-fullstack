@@ -1,4 +1,4 @@
-import { config } from 'dotenv';
+import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
 import swaggerUI from 'swagger-ui-express';
@@ -7,6 +7,7 @@ import swaggerJsDoc from 'swagger-jsdoc';
 import logger from './utils/logger.js';
 import demoRoutes from '../src/routes/demoRoutes.js';
 
+dotenv.config();
 const port = 5000;
 const app = express();
 
