@@ -1,6 +1,6 @@
-require('dotenv').config();
-const Knex = require('knex');
-const logger = require('../utils/logger');
+import { config } from 'dotenv';
+import Knex from 'knex';
+import logger from '../utils/logger.js';
 
 // You can dynamically pass the database name
 // as a command-line argument, or obtain it from
@@ -29,12 +29,12 @@ async function main() {
     if (databaseExists.rows.length === 0) {
       // Create the database if it doesn't exist
       await knex.raw(`CREATE DATABASE ${databaseName}`);
-      console.log(`Database "${databaseName}" created successfully.`);
+      logger.log(`Database "${databaseName}" created successfully.`);
     } else {
-      console.log(`Database "${databaseName}" already exists.`);
+      logger.log(`Database "${databaseName}" already exists.`);
     }
   } catch (error) {
-    console.error('Error creating database:', error);
+    logger.error('Error creating database:', error);
   }
 
   // Now that our database is known, let's create another knex object
@@ -55,12 +55,12 @@ async function main() {
   // Now we can happily run our migrations
   try {
     await knex.migrate.latest();
-    console.log(`Tables created successfully.`);
+    logger.log(`Tables created successfully.`);
   } catch (err) {
-    console.error('Unable to perform migration', err);
+    logger.error('Unable to perform migration', err);
   }
 
   // Done!!
 }
 
-main().catch(console.log).then(process.exit);
+main().catch(logger.log).then(process.exit);

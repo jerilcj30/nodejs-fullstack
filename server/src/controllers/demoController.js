@@ -1,6 +1,6 @@
-const logger = require('../utils/logger');
-const knex = require('../db/db');
-const { redis } = require('../utils/redis');
+import logger from '../utils/logger.js';
+import knex from '../db/db.js';
+import redis from '../utils/redis.js';
 
 // @desc Get all Demos
 // @route GET /api/demo
@@ -65,10 +65,4 @@ const deleteADemo = (req, res) => {
   res.status(200).json({ message: 'Delete A Demo' });
 };
 
-module.exports = {
-  getAllDemos,
-  createADemo,
-  getADemo,
-  updateADemo,
-  deleteADemo,
-};
+export { getAllDemos, createADemo, getADemo, updateADemo, deleteADemo };

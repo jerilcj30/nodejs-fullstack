@@ -1,13 +1,14 @@
-const express = require('express');
+import express from 'express';
 
-const router = express.Router();
-const {
+import {
   getAllDemos,
   createADemo,
   getADemo,
   updateADemo,
   deleteADemo,
-} = require('../controllers/demoController');
+} from '../controllers/demoController.js';
+
+const router = express.Router();
 
 /**
  * @swagger
@@ -90,4 +91,4 @@ router.route('/:id').get(getADemo);
 router.route('/:id').put(updateADemo);
 router.route('/:id').delete(deleteADemo);
 
-module.exports = router;
+export default router;
