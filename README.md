@@ -25,3 +25,5 @@
 # -------------------------------------------------------------------------------------------------------
 
 # React
+
+React query usage tutorial: https://www.youtube.com/watch?v=AAMBoENvfnE
