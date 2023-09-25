@@ -28,3 +28,8 @@
 
 React query usage tutorial: https://www.youtube.com/watch?v=AAMBoENvfnE
 zustand
+react-hook-form
+
+# React hooks examples
+
+Easiest react hook - https://www.youtube.com/shorts/2onAblXCQ_g
